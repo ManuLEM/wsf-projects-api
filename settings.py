@@ -24,11 +24,11 @@ DOMAIN = {
 		'technos': {
 			'type': 'list',
 			'schema': {
-				'type': 'string'
+				'type': 'objectid'
 			}
 		},
 		'theme': {
-			'type': 'string'
+			'type': 'objectid'
 		},
 		'year': {
 			'type': 'integer',
@@ -68,6 +68,18 @@ DOMAIN = {
 			'type': 'string',
 			'minlength': 1,
 			'maxlength': 15,
+			'required': True
+		}
+	},
+	'technos': {
+		'name': {
+			'type': 'string',
+			'required': True
+		}
+	},
+	'themes': {
+		'name': {
+			'type': 'string',
 			'required': True
 		}
 	}
