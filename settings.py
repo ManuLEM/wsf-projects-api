@@ -2,8 +2,8 @@ MONGO_HOST = 'ds151651.mlab.com'
 MONGO_PORT = 51651
 
 # Skip these if your db has no auth. But it really should.
-MONGO_USERNAME = ''
-MONGO_PASSWORD = ''
+MONGO_USERNAME = 'wsf-api'
+MONGO_PASSWORD = 'RYHorcOysshazK2'
 
 MONGO_DBNAME = 'heroku_5xjfsncr'
 MONGO_AUTH_MECHANISM = 'SCRAM-SHA-1'
@@ -16,13 +16,13 @@ DOMAIN = {
 			'allowed': ['WEC','AMC','Free Time','PFA','Data']
 		},
 		'tags': {
-			'type': 'list'
+			'type': 'list',
 			'schema': {
 				'type': 'string'
 			}
 		},
 		'technos': {
-			'type': 'list'
+			'type': 'list',
 			'schema': {
 				'type': 'string'
 			}
