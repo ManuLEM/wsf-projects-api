@@ -16,16 +16,18 @@ app = Eve()
 
 @app.route("/client_list")
 def clients():
-	return jsonify(
-		{
+	return jsonify({
+		'messages': [{
 			'text': 'Quel est le client de ton projet? allo?',
 			'quick_replies': [{
 				'content_type': 'text',
-				'title': 'A',
-				'payload': '|'
+				'title': 'A'
+			},{
+				'content_type': 'text',
+				'title': 'B'
 			}]
-		}
-	)
+		}]
+	})
 
 if __name__ == '__main__':
 	app.run(host=host,port=port)
