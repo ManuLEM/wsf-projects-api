@@ -16,7 +16,7 @@ app = Eve()
 
 
 @app.route("/")
-def home():
+def test():
 	return 'Hello world'
 
 @app.route("/client_list")
