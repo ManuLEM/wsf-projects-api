@@ -14,16 +14,11 @@ else:
 
 app = Eve()
 
-
-@app.route("/test")
-def test():
-	return 'Hello world'
-
 @app.route("/client_list")
 def clients():
 	return jsonify(
 		{
-			'text': 'Quel est le client de ton projet?',
+			'text': 'Quel est le client de ton projet? allo?',
 			'quick_replies': [{
 				'content_type': 'text',
 				'title': 'A',
