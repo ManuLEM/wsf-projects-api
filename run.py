@@ -15,6 +15,10 @@ else:
 app = Eve()
 
 
+@app.route("/")
+def home():
+	return 'Hello world'
+
 @app.route("/client_list")
 def clients():
 	return jsonify(
