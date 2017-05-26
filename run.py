@@ -1,6 +1,5 @@
 # coding: utf-8
 import os
-import sys
 from eve import Eve
 from flask import jsonify
 from flask import request
@@ -84,8 +83,7 @@ def add_project():
 			'lastname': lastname
 		}
 
-	req = request.json
-	return sys.stdout.write(req)
+	req = request.form
 	themes = app.data.driver.db['themes'].find({'name': req['theme']})
 	clients = app.data.driver.db['clients'].find({'name': req['client']})
 	tech_array = req['technos'].split(',')
