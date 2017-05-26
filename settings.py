@@ -20,11 +20,12 @@ DOMAIN = {
 			'required': True,
 			'allowed': ['WEC','AMC','Free Time','PFA','Data']
 		},
-		'tags': {
-			'type': 'list',
-			'schema': {
-				'type': 'string'
-			}
+		'link': {
+			'type': 'string',
+			'required': True
+		},
+		'image': {
+			'type': 'string'
 		},
 		'technos': {
 			'type': 'list',

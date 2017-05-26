@@ -15,10 +15,10 @@ else:
 	port = 5000
 
 searchable_items = {
-	'themes': 'Quelle est la thématique de ton projet?',
-	'technos': 'De quelle techno as-tu besoin?',
-	'clients': 'Quel est le client de ton projet?',
-	'types': 'Quelle typologie cherches-tu?'
+	'themes': 'Tu cherches un projet en particulier?',
+	'technos': 'T’as une idée de techno en tête, ou pas encore?',
+	'clients': 'Qui est ton client / le partenaire du projet?',
+	'types': 'T’as un thème en particulier?'
 }
 
 app = Eve()
@@ -34,9 +34,9 @@ def list_options(type):
 	if options.count() == 0:
 		return jsonify({
 			'messages': [{
-				'text': 'Désolé, je n\'ai aucun projet en réserve qui corresponde à ta recherche :/'
+				'text': 'Désolée :/ je n’ai aucun projet en stock qui corresponde à ta recherche...'
 			},{
-				'text': 'Tu veux retenter une recherche?',
+				'text': 'Tu veux réessayer ? :)',
 				'buttons': [{
 					'type': 'show_block',
 					'block_name': 'Search',
@@ -54,7 +54,11 @@ def list_options(type):
 	for option in options:
 		message['messages'][0]['quick_replies'].append({
 			'content_type': 'text',
-			'title': option['name']
+			'title': option['name'],
+			'block_names':['Get Projects'],
+			"set_attributes": {
+				"filter_value": option['name']
+			}
 		})
 	return jsonify(message)
 
@@ -65,7 +69,6 @@ def add_project():
 	teammates
 	technos
 	theme
-	tags
 	client
 	project_type
 	link
