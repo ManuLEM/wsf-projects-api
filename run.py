@@ -182,12 +182,12 @@ def get_project(filter_type,filter_value):
 		# subtitle.append(project['client'])
 		# subtitle.append(project['theme'])
 		elements.append({
-			"title":project['name'],
+			"title":'Toto',
 			# "subtitle":subtitle,
 			"buttons":[
 				{
 				"type":"web_url",
-				# "url":project['link'],
+				"url":'test',
 				"title":"Voir la présentation"
 				}
 			]
