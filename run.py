@@ -157,6 +157,7 @@ def add_project():
 
 @app.route("/get_projects/<string:filter_type>/<string:filter_value>", methods=['GET'])
 def get_project(filter_type,filter_value):
+	filter_type = filter_type.lower()
 	options = app.data.driver.db['projects'].find({filter_type: filter_value})
 
 	if options.count() == 0:
