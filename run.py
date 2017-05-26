@@ -84,7 +84,7 @@ def add_project():
 		}
 
 	req = request.json
-	print req
+	return sys.stdout.write(req)
 	themes = app.data.driver.db['themes'].find({'name': req['theme']})
 	clients = app.data.driver.db['clients'].find({'name': req['client']})
 	tech_array = req['technos'].split(',')
