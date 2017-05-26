@@ -28,7 +28,7 @@ def list_options(type):
 	if type == 'types':
 		options = [{'name':'WEC'},{'name':'AMC'},{'name':'Free Time'},{'name':'PFA'},{'name':'Data'}]
 	else:
-		options = app.data.driver.db[type].find()
+		options = app.data.driver.db['clients'].find()
 
 	if options.count() == 0:
 		return jsonify({
@@ -69,7 +69,6 @@ def add_project():
 	project_type
 	link
 	year'''
-
 	app.data.driver.db['themes'].get_or_create({
 		'name': request.json['theme']
 	})
