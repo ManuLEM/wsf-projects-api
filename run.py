@@ -83,7 +83,7 @@ def add_project():
 			'lastname': lastname
 		}
 
-	req = request.form
+	req = request.json
 	themes = app.data.driver.db['themes'].find({'name': req['theme']})
 	clients = app.data.driver.db['clients'].find({'name': req['client']})
 	tech_array = req['technos'].split(',')
@@ -155,16 +155,54 @@ def add_project():
 		}]
 	})
 
-@app.route("/get_projects", methods=['GET'])
-def get_project():
-	# request.args['filter_type']
-	# request.args['filter_value']
-	options = app.data.driver.db['projects'].find()
+@app.route("/get_projects/<string:filter_type>/<string:filter_value>", methods=['GET'])
+def get_project(filter_type,filter_value):
+	options = app.data.driver.db['projects'].find({filter_type: filter_value})
+
+	if options.count() == 0:
+		return jsonify({
+			'messages': [{
+				'text': 'Désolée :/ je n’ai aucun projet en stock qui corresponde à ta recherche...'
+			},{
+				'text': 'Tu veux réessayer ? :)',
+				'buttons': [{
+					'type': 'show_block',
+					'block_name': 'Search',
+					'title': 'Je cherche'
+				}]
+			}]
+		})
 
 	# 'text': 'C\'est bien ce que tu cherchais ? :)'
+	elements = []
+	for project in options:
+		subtitle = [project['year']] if project['year'] else []
+		subtitle.append(project['project_type'])
+		subtitle.append(project['client'])
+		subtitle.append(project['theme'])
+		elements.append({
+			"title":project['name'],
+			"subtitle":subtitle,
+			"buttons":[
+				{
+				"type":"web_url",
+				"url":project['link'],
+				"title":"Voir la présentation"
+				}
+			]
+		})
+
 	return jsonify({
 		'messages': [{
-			'text': 'Désolé, cette fonctionnalité est pas encore implémentée :/',
+			"attachment":{
+				"type":"template",
+				"payload":{
+					"template_type":"generic",
+					"elements":elements
+				}
+			}
+		},{
+			'text': 'Je reste à ta dispo si besoin ;)',
 			'buttons': [{
 				'type': 'show_block',
 				'block_name': 'Search',
