@@ -177,17 +177,17 @@ def get_project(filter_type,filter_value):
 	# 'text': 'C\'est bien ce que tu cherchais ? :)'
 	elements = []
 	for project in options:
-		subtitle = [project['year']] if project['year'] else []
-		subtitle.append(project['project_type'])
-		subtitle.append(project['client'])
-		subtitle.append(project['theme'])
+		# subtitle = [project['year']] if project['year'] else []
+		# subtitle.append(project['project_type'])
+		# subtitle.append(project['client'])
+		# subtitle.append(project['theme'])
 		elements.append({
 			"title":project['name'],
-			"subtitle":subtitle,
+			# "subtitle":subtitle,
 			"buttons":[
 				{
 				"type":"web_url",
-				"url":project['link'],
+				# "url":project['link'],
 				"title":"Voir la présentation"
 				}
 			]
