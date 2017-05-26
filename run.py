@@ -199,7 +199,7 @@ def get_project(filter_type,filter_value):
 				"type":"template",
 				"payload":{
 					"template_type":"generic",
-					"elements":[{'title': 'Test'}]
+					"elements":elements
 				}
 			}
 		},{
