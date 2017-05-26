@@ -183,7 +183,7 @@ def get_project(filter_type,filter_value):
 		subtitle.append(project['theme'])
 		elements.append({
 			"title":project['name'],
-			"subtitle":subtitle,
+			"subtitle":' - '.join(subtitle),
 			"buttons":[
 				{
 				"type":"web_url",
