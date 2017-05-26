@@ -10,6 +10,11 @@ MONGO_AUTH_MECHANISM = 'SCRAM-SHA-1'
 
 DOMAIN = {
 	'projects': {
+		'name': {
+			'type': 'string',
+			'required': True,
+			'unique': True
+		},
 		'project_type': {
 			'type': 'string',
 			'required': True,

@@ -2,6 +2,7 @@
 import os
 from eve import Eve
 from flask import jsonify
+from flask import request
 
 # Heroku support: bind to PORT if defined, otherwise default to 5000.
 if 'PORT' in os.environ:
@@ -16,14 +17,18 @@ else:
 searchable_items = {
 	'themes': 'Quelle est la thématique de ton projet?',
 	'technos': 'De quelle techno as-tu besoin?',
-	'clients': 'Quel est le client de ton projet?'
+	'clients': 'Quel est le client de ton projet?',
+	'types': 'Quelle typologie cherches-tu?'
 }
 
 app = Eve()
 
-@app.route("/list/<string:type>")
+@app.route("/list/<string:type>", methods=['GET'])
 def list_options(type):
-	options = app.data.driver.db[type].find()
+	if type == 'types':
+		options = [{'name':'WEC'},{'name':'AMC'},{'name':'Free Time'},{'name':'PFA'},{'name':'Data'}]
+	else:
+		options = app.data.driver.db[type].find()
 
 	if options.count() == 0:
 		return jsonify({
@@ -51,6 +56,50 @@ def list_options(type):
 			'title': option['name']
 		})
 	return jsonify(message)
+
+
+@app.route("/add_project", methods=['POST'])
+def add_project():
+	'''name
+	teammates
+	technos
+	theme
+	tags
+	client
+	project_type
+	link
+	year'''
+
+	app.data.driver.db['themes'].get_or_create({
+		'name': request.json['theme']
+	})
+
+	subtitle = [request.json['year']] if request.json['year'] else []
+	subtitle.append(request.json['project_type'], request.json['client'], request.json['theme'])
+
+	return jsonify({
+		'messages': [{
+			'text': 'Ton projet a bien été ajouté! Voilà le résulat'
+		},{
+			'attachment':{
+				'type':'template',
+				'payload':{
+					'template_type':'generic',
+					'elements':[{
+						'title':request.json['name'],
+						'subtitle':subtitle.join(' - '),
+						'buttons':[
+							{
+							'type':'web_url',
+							'url':request.json['link'],
+							'title':'Voir le projet'
+							}
+						]
+					}]
+				}
+			}
+		}]
+	})
 
 if __name__ == '__main__':
 	app.run(host=host,port=port)
