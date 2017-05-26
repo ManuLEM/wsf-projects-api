@@ -120,7 +120,7 @@ def add_project():
 		'theme': req['theme'],
 		'project_type': req['project_type'],
 		'link': req['link'],
-		'year': req['year'] if req['project_type'] != 'WEC' && req['project_type'] != 'AMC' else '',
+		'year': req['year'] if req['project_type'] != 'WEC' and req['project_type'] != 'AMC' else '',
 		'technos': tech_array,
 		'students': students_array
 
