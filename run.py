@@ -104,5 +104,27 @@ def add_project():
 		}]
 	})
 
+@app.route("/get_projects", methods=['GET'])
+def add_project():
+	# request.args['filter_type']
+	# request.args['filter_value']
+	options = app.data.driver.db['projects'].find()
+
+	# 'text': 'C\'est bien ce que tu cherchais ? :)'
+	return jsonify({
+		'messages': [{
+			'text': 'Désolé, cette fonctionnalité est pas encore implémentée :/'
+			'buttons': [{
+				'type': 'show_block',
+				'block_name': 'Search',
+				'title': 'Nouvelle recherche'
+			},{
+				'type': 'show_block',
+				'block_name': 'Add - 1',
+				'title': 'Ajouter un projet'
+			}]
+		}]
+	})
+
 if __name__ == '__main__':
 	app.run(host=host,port=port)
