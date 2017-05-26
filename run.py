@@ -105,7 +105,7 @@ def add_project():
 	})
 
 @app.route("/get_projects", methods=['GET'])
-def add_project():
+def get_project():
 	# request.args['filter_type']
 	# request.args['filter_value']
 	options = app.data.driver.db['projects'].find()
@@ -113,7 +113,7 @@ def add_project():
 	# 'text': 'C\'est bien ce que tu cherchais ? :)'
 	return jsonify({
 		'messages': [{
-			'text': 'Désolé, cette fonctionnalité est pas encore implémentée :/'
+			'text': 'Désolé, cette fonctionnalité est pas encore implémentée :/',
 			'buttons': [{
 				'type': 'show_block',
 				'block_name': 'Search',
