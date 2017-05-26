@@ -177,17 +177,17 @@ def get_project(filter_type,filter_value):
 	# 'text': 'C\'est bien ce que tu cherchais ? :)'
 	elements = []
 	for project in options:
-		# subtitle = [project['year']] if project['year'] else []
-		# subtitle.append(project['project_type'])
-		# subtitle.append(project['client'])
-		# subtitle.append(project['theme'])
+		subtitle = [project['year']] if project['year'] else []
+		subtitle.append(project['project_type'])
+		subtitle.append(project['client'])
+		subtitle.append(project['theme'])
 		elements.append({
-			"title":'Toto',
-			# "subtitle":subtitle,
+			"title":project['name'],
+			"subtitle":subtitle,
 			"buttons":[
 				{
 				"type":"web_url",
-				"url":'test',
+				"url":project['link'],
 				"title":"Voir la présentation"
 				}
 			]
@@ -199,7 +199,7 @@ def get_project(filter_type,filter_value):
 				"type":"template",
 				"payload":{
 					"template_type":"generic",
-					"elements":elements
+					"elements":[{'title': 'Test'}]
 				}
 			}
 		},{
