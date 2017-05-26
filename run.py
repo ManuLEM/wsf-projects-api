@@ -73,12 +73,63 @@ def add_project():
 	project_type
 	link
 	year'''
-	app.data.driver.db['themes'].get_or_create({
-		'name': request.json['theme']
+	def format_student(student):
+		student = student.lstrip()
+		array = student.split(' ')
+		firstname = array[0]
+		lastname = ' '.join(array[1:])
+		return {
+			'firstname': firstname,
+			'lastname': lastname
+		}
+
+	req = request.json
+	themes = app.data.driver.db['themes'].find({'name': req['theme']})
+	clients = app.data.driver.db['clients'].find({'name': req['client']})
+	tech_array = req['technos'].split(',')
+	tech_array = map(lambda x: x.lstrip(), tech_array)
+	students_array = req['teammates'].split(',')
+	students_array = map(lambda x: format_student(x), students_array)
+
+	if themes.count() == 0:
+		app.data.driver.db['themes'].insert({
+			'name': req['theme']
+		})
+	if clients.count() == 0:
+		app.data.driver.db['clients'].insert({
+			'name': req['client']
+		})
+
+	for tech in tech_array:
+		items = app.data.driver.db['technos'].find({'name': tech})
+		if items.count() == 0:
+			app.data.driver.db['technos'].insert({
+				'name': tech
+			})
+	for student in students_array:
+		items = app.data.driver.db['students'].find({'firstname': student['firstname'], 'lastname': student['lastname']})
+		if items.count() == 0:
+			app.data.driver.db['students'].insert({
+				'firstname': student['firstname'],
+				'lastname': student['lastname']
+			})
+
+	app.data.driver.db['projects'].insert({
+		'name': req['name'],
+		'client': req['client'],
+		'theme': req['theme'],
+		'project_type': req['project_type'],
+		'link': req['link'],
+		'year': req['year'],
+		'technos': tech_array,
+		'students': students_array
+
 	})
 
 	subtitle = [request.json['year']] if request.json['year'] else []
-	subtitle.append(request.json['project_type'], request.json['client'], request.json['theme'])
+	subtitle.append(request.json['project_type'])
+	subtitle.append(request.json['client'])
+	subtitle.append(request.json['theme'])
 
 	return jsonify({
 		'messages': [{
@@ -90,7 +141,7 @@ def add_project():
 					'template_type':'generic',
 					'elements':[{
 						'title':request.json['name'],
-						'subtitle':subtitle.join(' - '),
+						'subtitle':' - '.join(subtitle),
 						'buttons':[
 							{
 							'type':'web_url',

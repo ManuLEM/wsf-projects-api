@@ -24,17 +24,17 @@ DOMAIN = {
 			'type': 'string',
 			'required': True
 		},
-		'image': {
-			'type': 'string'
-		},
 		'technos': {
 			'type': 'list',
 			'schema': {
-				'type': 'objectid'
+				'type': 'string'
 			}
 		},
 		'theme': {
-			'type': 'objectid'
+			'type': 'string'
+		},
+		'client': {
+			'type': 'string'
 		},
 		'year': {
 			'type': 'integer',
@@ -43,10 +43,16 @@ DOMAIN = {
 		},
 		'students': {
 			'type': 'list',
-			'required': True,
 			'schema': {
-				'type': 'objectid',
-				'required': True
+				'type': 'dict',
+				'schema': {
+					'firstname': {
+						'type': 'string'
+					},
+					'lastname': {
+						'type': 'string'
+					}
+				}
 			}
 		}
 	},
@@ -62,11 +68,6 @@ DOMAIN = {
 			'minlength': 1,
 			'maxlength': 25,
 			'required': True
-		},
-		'promotion': {
-			'type': 'integer',
-			'min': 2017,
-			'max': 2040
 		}
 	},
 	'clients': {
