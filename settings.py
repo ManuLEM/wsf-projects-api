@@ -37,9 +37,8 @@ DOMAIN = {
 			'type': 'string'
 		},
 		'year': {
-			'type': 'integer',
-			'min': 1,
-			'max': 5
+			'type': 'string',
+			'allowed': ['1A','2A','3A','4A','5A']
 		},
 		'students': {
 			'type': 'list',
