@@ -25,10 +25,11 @@ app = Eve()
 
 @app.route("/list/<string:type>", methods=['GET'])
 def list_options(type):
+	type = type if type[-1] == 's' else type.lower()+'s'
 	if type == 'types':
 		options = [{'name':'WEC'},{'name':'AMC'},{'name':'Free Time'},{'name':'PFA'},{'name':'Data'}]
 	else:
-		options = app.data.driver.db['clients'].find()
+		options = app.data.driver.db[type].find()
 
 	if options.count() == 0:
 		return jsonify({
